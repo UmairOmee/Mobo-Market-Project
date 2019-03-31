@@ -8,7 +8,7 @@ import { SITE_SERVER } from '../components/utils/misc';
 
 export function getSiteData(){
 
-    const request = axios.get(`http://localhost:3002${SITE_SERVER}/site_data`)
+    const request = axios.get(`${SITE_SERVER}/site_data`)
                     .then(response => response.data);
 
     return {
@@ -20,7 +20,7 @@ export function getSiteData(){
 
 export function updateSiteData(dataToSubmit){
 
-    const request = axios.post(`http://localhost:3002${SITE_SERVER}/site_data`, dataToSubmit)
+    const request = axios.post(`${SITE_SERVER}/site_data`, dataToSubmit)
         .then(response => response.data);
 
     return {
