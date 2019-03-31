@@ -53,5 +53,15 @@ export function logoutUser(){
 
 }
 
+// const addUser = ( user ) => {
+//     return { type: "ADD_USER", payload: user }
+// }
+// const removeUser = ({ id } = {}) => ({
+//     type: 'REMOVE_USER',
+//     id
+//   });
+
+// export { addUser,removeUser }
+
 
 

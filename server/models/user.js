@@ -98,3 +98,24 @@ userSchema.statics.findByToken = function(token,cb){
 const User = mongoose.model('User',userSchema);
 
 module.exports = { User }
+// var mongoose = require( 'mongoose' );
+// require('dotenv').config();
+// const UserSchema =  mongoose.Schema({
+//     fullName: {
+//       type: String,
+//       default: ''
+//     },
+//     email: {
+//       type: String,
+//       default: ''
+//     },
+//     password: {
+//       type: String,
+//       default: ''
+//     },
+//     cart:[{type:String,
+//     default:0
+//     }]
+//   });
+//   const User=mongoose.model('User', UserSchema);
+//   module.exports =User

@@ -127,3 +127,83 @@ class Login extends Component {
 }
 
 export default connect()(withRouter(Login));
+
+// import React, { Component } from 'react';
+
+
+// import { Link } from 'react-router-dom';
+
+// import { addUser } from '../../actions/user_actions';
+// import { connect } from 'react-redux'
+
+
+// class Login extends Component {
+
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       username: '',
+//       password: '',
+//       message: ''
+//     };
+//   }
+//   onChange = (e) => {
+//     const state = this.state
+//     state[e.target.name] = e.target.value;
+//     this.setState(state);
+//   }
+
+//   onSubmit = (e) => {
+//     e.preventDefault();
+
+//     const { username, password } = this.state;
+
+//     var options = {
+//       method: 'POST',
+//       body: JSON.stringify({ username: this.state.username, password:this.state.password }),
+//       headers: {
+//         'Content-Type': 'application/json'
+//       }
+      
+//     }
+//     fetch('http://localhost:3002/login', options)
+//     .then((res) => res.json())
+
+//     .then((message) =>{localStorage.setItem('user', JSON.stringify(message.user));
+//     var user=JSON.parse(localStorage.getItem('user'));
+//  if(user!==null){
+//         this.props.dispatch(addUser(user));}
+//       console.log(message.user);
+//       this.props.history.push('/dashboard')
+//     })
+//     .catch(() => {
+// this.setState({message:'Username and Password are Incorrect'})
+//     })
+//   }
+
+//   render() {
+//     const { username, password, message } = this.state;
+//     return (
+//       <div class="container">
+//         <form class="form-signin" onSubmit={this.onSubmit}>
+//           {message !== '' &&
+//             <div class="alert alert-warning alert-dismissible" role="alert">
+//               { message }
+//             </div>
+//           }
+//           <h2 class="form-signin-heading">Please sign in</h2>
+//           <label for="inputEmail" class="sr-only">Email address</label>
+//           <input type="email" class="form-control" placeholder="Email address" name="username" value={username} onChange={this.onChange} required/>
+//           <label for="inputPassword" class="sr-only">Password</label>
+//           <input type="password" class="form-control" placeholder="Password" name="password" value={password} onChange={this.onChange} required/>
+//           <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+//           <p>
+//             Not a member? <Link to="/register"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Register here</Link>
+//           </p>
+//         </form>
+//       </div>
+//     );
+//   }
+// }
+
+// export default connect()(Login);

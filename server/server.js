@@ -4,20 +4,41 @@ const cookieParser = require('cookie-parser');
 const formidable = require('express-formidable');
 const cloudinary = require('cloudinary');
 const nodemailer = require('nodemailer')
+// var morgan = require('morgan');
+// var flash = require('connect-flash');
 
-
+// var session = require("express-session")
+// var passport = require('passport');
+// var LocalStrategy = require('passport-local').Strategy;
 
 const app = express();
 const mongoose = require('mongoose');
 require('dotenv').config();
+const uri="mongodb+srv://UmairOmii:(792871mu)@my-mobo-gzjsk.mongodb.net/test?retryWrites=true"
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DATABASE, { useNewUrlParser: true });
+mongoose.connect(uri, { useNewUrlParser: true });
+// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'DB connection error:'));
+db.once('open', function () { console.log('Successfully connected to DB') });
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+app.use( express.static('client/build') )
+
+// app.use(morgan('dev'));
+// app.use(session({
+//     secret:'secret123',
+//     saveUninitialized: true,
+//     resave:true
+// }));
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use(flash());
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -34,6 +55,74 @@ const { Site } = require('./models/site');
 // Middlewares
 const { auth } = require('./middleware/auth');
 const { admin } = require('./middleware/admin');
+
+
+//PassPort Js
+
+// app.use(session({ secret: "User-Session" }));
+// passport.use(new LocalStrategy(
+//     function (username,password, next) {
+//         console.log(username,password);
+//         User.findOne( {
+//          email :username, 
+//          password :password
+//         },(err,user)=>{
+//             console.log(user);
+//         if (user) {
+//             console.log(user._id)
+//             next(null, user);
+//         } else {
+//             next(null, false, { message: 'Incorrect username.' });
+//             console.log("Error")
+//         }}
+//         )}
+// ));
+
+           
+// passport.serializeUser(function (user, next) {
+//     next(null, user._id.toHexString());
+
+// });
+// passport.deserializeUser(function (userId, next) {
+//     User.findOne({ _id: userID }, function(err, user){
+//         next(err, user);
+//     })
+// })
+
+
+// app.get('/logout', function(req, res){
+//     req.logout();
+//     res.send('logout');
+//   });
+
+// app.post('/login', passport.authenticate('local'),(req,res)=>{
+// res.json({success:true,user:req.user})
+// });
+
+// app.post('/register',(req,res)=>{
+// User.findOne( {
+//     email :req.body.email, 
+//    },(err,user)=>{
+//        console.log(user);
+//    if (user) {
+//      res.json({success:false});
+//    } else {
+//     var newUser = new User();
+//     newUser.email = req.body.email;
+//     newUser.password = req.body.password;
+//     newUser.fullName = req.body.fullname;
+//     newUser.save(function(err,user){
+//         if (err) {
+//             return res.json({"success": false, err: err })
+//         }
+//         res.json({"success":true,"user":user})
+//    })
+
+
+// }
+// });
+// }
+// )
 
 
 //=================================
@@ -335,6 +424,14 @@ app.post('/api/site/site_data',auth,admin,(req,res)=>{
         }
     )
 })
+
+//default
+if( process.env.NODE_ENV === 'production' ) {
+    const path = require("path");
+    app.get('/*',(req,res)=>{
+        res.sendfile(path.resolve(_dirname,'../client','build','index.html'));
+    })
+}
 
 
 

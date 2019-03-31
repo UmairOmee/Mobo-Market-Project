@@ -16,6 +16,10 @@ export default function(state={},action){
             return {...state, userData: action.payload }
             case LOGOUT_USER:
             return {...state }
+            // case "ADD_USER":
+            // return [ action.payload, ...state ]
+            // case 'REMOVE_USER':
+            // return state.filter(({ _id }) => _id !== action.id);
         default:
             return state;
     }
